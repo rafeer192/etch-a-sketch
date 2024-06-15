@@ -4,11 +4,6 @@
   margin: 0px; 
 }
 
-body { 
-  display: flex;
-  justify-content: center;
-}
-
 div.grid-container {
   display: flex; 
   flex-wrap: wrap;
