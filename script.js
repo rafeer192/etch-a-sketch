@@ -1,9 +1,20 @@
 const gridContainer = document.querySelector(".grid-container"); 
 for(let i = 0; i < 16; ++i) {
-  //const rowBox = document.createElement("div"); 
-  for(let j = 0; j < 16; ++j){
+  for(let j = 0; j < 16; ++j) {
     const box = document.createElement("div"); 
     gridContainer.appendChild(box); 
   }
-  //gridContainer.appendChild(rowBox); 
 }
+const boxes = document.querySelectorAll(".grid-container div"); 
+boxes.forEach((box) => box.addEventListener("mouseenter", enterHandler)); 
+
+function enterHandler() {
+  this.classList.add("hovered");
+}
+
+
+
+window.addEventListener("beforeunload", (event) => {
+  event.preventDefault(); 
+  event.returnValue = true; 
+}); 
