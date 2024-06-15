@@ -13,8 +13,8 @@ div.grid-container {
   border: 2px solid black;
   margin: 40px auto;
 }
-.grid-container div {
-  border: 1px solid black; 
+.grid-container div.default {
+  border: 1px solid darkgray; 
   height: 50px;
   width: 50px; 
 }
