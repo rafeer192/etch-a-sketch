@@ -2,7 +2,7 @@ const CANVAS_SIZE = 804;
 const gridContainer = document.querySelector(".grid-container"); 
 
 function allowDraw() {
-  const boxes = document.querySelectorAll(".grid-container div"); 
+  const boxes = document.querySelectorAll(".grid-container div.box"); 
   boxes.forEach((box) => box.addEventListener("mouseenter", enterHandler)); 
 
   function enterHandler() { 
@@ -15,6 +15,7 @@ for(let i = 0; i < 16; ++i) {
   for(let j = 0; j < 16; ++j) {
     const box = document.createElement("div"); 
     box.classList.add("default"); 
+    box.classList.add("box"); 
     gridContainer.appendChild(box); 
   }
 }
@@ -32,20 +33,19 @@ changeBtn.addEventListener("click", () => {
     }
     const boxSize = Math.floor(CANVAS_SIZE / newResolution); 
     for(let i = 0; i < newResolution; ++i) {
-      const newStartBox = document.createElement("div"); 
+      const columnWrapper = document.createElement("div"); 
       for(let j = 0; j < newResolution; ++j) {
         const newBox = document.createElement("div"); 
-        newBox.style.cssText = `height: ${boxSize}px; width: ${boxSize}px; border: 1px solid black; margin: 0px; padding: 0px;`; 
-        newStartBox.appendChild(newBox); 
+        newBox.style.cssText = `height: ${boxSize}px; width: ${boxSize}px; border: 1px solid darkgray; margin: 0px; padding: 0px;`; 
+        console.log(boxSize); 
+        newBox.classList.add("box");
+        columnWrapper.appendChild(newBox); 
       }
-      gridContainer.appendChild(newStartBox); 
+      gridContainer.appendChild(columnWrapper); 
     }
     allowDraw(); 
   }
 });  
-// NOTE 6/14: TAKING A BREAK, BUT COME BACK AND CONSIDER CHANGING THE WAY YOU CREATE GRIDS, HAVE A STARTING BLOCK WITH NO STYLE AND THEN
-// APPEND THE DIVS OF A COLUMN TO THAT STARTING DIV AND THEN APPEND THAT ENTIRE DIV TO GRIDCONTAINER
-// ALSO USE BETTER VARIABLE NAMES
 
 window.addEventListener("beforeunload", (event) => {
   event.preventDefault(); 
