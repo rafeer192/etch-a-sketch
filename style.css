@@ -2,9 +2,37 @@
   box-sizing: border-box;
   padding: 0px; 
   margin: 0px; 
+  font-family: "Roboto", sans-serif;
 }
 
+body {
+  background-color: #c1dfe9;
+  display: flex;
+  justify-content: center;
+}
+
+.button-wrapper {
+  display: flex; 
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 40px;
+}
+
+.button-wrapper button {
+  background-color: rgb(72, 72, 72);
+  color: white;
+  font-size: 18px;
+  width: 200px; 
+  height: 100px;
+  padding-left: 30px; 
+  padding-right: 30px;
+  border-radius: 8px;
+  border: 2px solid black;
+}
+
+
 div.grid-container {
+  background-color: white;
   display: flex; 
   flex-wrap: wrap;
   justify-content: center;
