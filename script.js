@@ -47,8 +47,7 @@ function changeResolutionHandler() {
 const changeColorBtn = document.querySelector("button.change-color"); 
 changeColorBtn.addEventListener("click", changeColorHandler);
 
-function changeColorHandler() {
-  const allBoxes = document.querySelectorAll(".box"); 
+function changeColorHandler() { 
   if(changeColorBtn.classList.contains("randomize")) {
     allowRandomDraw(); 
   }
@@ -81,8 +80,7 @@ function enterHandler() {
     this.classList.add("hovered"); 
   }
   else if(this.style.opacity != "1") {
-    let newOpacity = 0.1 + Number(this.style.opacity); 
-    this.style.opacity = newOpacity;
+    this.style.opacity = 0.1 + Number(this.style.opacity);
   }
 }
 
@@ -102,8 +100,14 @@ function allowRandomDraw() {
 function randomEnterHandler() {
   if(!this.classList.contains("hovered")) {
     let newColorCode = "#" + Math.floor(Math.random() * 16777215).toString(16);
-    this.style.cssText += `background-color: ${newColorCode}; opacity: 0.1;`; 
+    this.style.opacity = "0.1"; 
+    this.style.backgroundColor = `${newColorCode}`; 
     this.classList.add("hovered"); 
+  }
+  else if(this.style.opacity != "1") {
+    this.style.opacity = 0.1 + Number(this.style.opacity);
+    console.log(this.style.backgroundColor); 
+    console.log(this.style.opacity); 
   }
 }
 
