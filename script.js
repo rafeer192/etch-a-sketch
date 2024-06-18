@@ -1,53 +1,109 @@
-const CANVAS_SIZE = 804; 
+const CANVAS_SIZE = 804;  // Effective canvas size not including offset
 const gridContainer = document.querySelector(".grid-container"); 
-
-function allowDraw() {
-  const boxes = document.querySelectorAll(".grid-container div.box"); 
-  boxes.forEach((box) => box.addEventListener("mouseenter", enterHandler)); 
-
-  function enterHandler() { 
-    this.classList.add("hovered");
-  }
-}
 
 // create starting 16x16 grid
 for(let i = 0; i < 16; ++i) {
+  const columnWrapper = document.createElement("div"); 
   for(let j = 0; j < 16; ++j) {
     const box = document.createElement("div"); 
     box.classList.add("default"); 
     box.classList.add("box"); 
-    gridContainer.appendChild(box); 
+    columnWrapper.appendChild(box); 
   }
+  gridContainer.appendChild(columnWrapper); 
 }
 allowDraw(); 
 
-const changeBtn = document.querySelector("button.change-res"); 
-changeBtn.addEventListener("click", () => {
+const changeResBtn = document.querySelector("button.change-res"); 
+changeResBtn.addEventListener("click", changeResolutionHandler);  
+
+function changeResolutionHandler() {
   let newResolution = Number(prompt("Please enter the new number of pixels per row (max. 100)", "16")); 
   if(newResolution > 100 || newResolution < 1) {
     alert("Resolution cannot be greater than 100 or less than 1!"); 
   }
   else {
-    while(gridContainer.firstChild) {
-      gridContainer.removeChild(gridContainer.lastChild); 
-    }
+    clearCanvas();
     const boxSize = Math.floor(CANVAS_SIZE / newResolution); 
     for(let i = 0; i < newResolution; ++i) {
-      const columnWrapper = document.createElement("div"); 
+      const colWrapper = document.createElement("div"); 
       for(let j = 0; j < newResolution; ++j) {
         const newBox = document.createElement("div"); 
-        newBox.style.cssText = `height: ${boxSize}px; width: ${boxSize}px; border: 1px solid darkgray; margin: 0px; padding: 0px;`; 
-        console.log(boxSize); 
         newBox.classList.add("box");
-        columnWrapper.appendChild(newBox); 
+        newBox.style.cssText += `height: ${boxSize}px; width: ${boxSize}px;`; 
+        colWrapper.appendChild(newBox); 
       }
-      gridContainer.appendChild(columnWrapper); 
+      gridContainer.appendChild(colWrapper); 
     }
+    if(changeColorBtn.classList.contains("randomize")) {
+      allowDraw(); 
+    }
+    else {
+      allowRandomDraw();
+    }
+  }
+}
+
+const changeColorBtn = document.querySelector("button.change-color"); 
+changeColorBtn.addEventListener("click", changeColorHandler);
+
+function changeColorHandler() {
+  const allBoxes = document.querySelectorAll(".box"); 
+  if(changeColorBtn.classList.contains("randomize")) {
+    allowRandomDraw(); 
+  }
+  else if(changeColorBtn.classList.contains("change-black")) {
     allowDraw(); 
   }
-});  
+  if(changeColorBtn.classList.contains("randomize")) {
+    changeColorBtn.classList.remove("randomize"); 
+    changeColorBtn.classList.add("change-black"); 
+    changeColorBtn.textContent = "Change to black coloring"; 
+  }
+  else {
+    changeColorBtn.classList.remove("change-black"); 
+    changeColorBtn.classList.add("randomize"); 
+    changeColorBtn.textContent = "Change to random colors"; 
+  }
+}
 
-window.addEventListener("beforeunload", (event) => {
+function allowDraw() {
+  const boxes = document.querySelectorAll(".box"); 
+  boxes.forEach((box) => {
+    box.removeEventListener("mouseenter", randomEnterHandler); 
+    box.addEventListener("mouseenter", enterHandler); 
+  }); 
+}
+function enterHandler() { 
+  if(!this.classList.contains("hovered")) {
+    this.style.cssText += `background-color: black;`;
+  }
+  this.style.opacity += 0.1; 
+  this.classList.add("hovered"); 
+}
+
+function clearCanvas() {
+  while(gridContainer.firstChild) {
+    gridContainer.removeChild(gridContainer.lastChild); 
+  }
+}
+
+function allowRandomDraw() {
+  const allBoxes = document.querySelectorAll(".box"); 
+  allBoxes.forEach((box) => {
+    box.removeEventListener("mouseenter", enterHandler); 
+    box.addEventListener("mouseenter", randomEnterHandler); 
+  }); 
+}
+function randomEnterHandler() {
+  if(!this.classList.contains("hovered")) {
+    let newColorCode = "#" + Math.floor(Math.random() * 16777215).toString(16);
+    this.style.cssText += `background-color: ${newColorCode}`; 
+  }
+  this.classList.add("hovered"); 
+}
+
+/*window.addEventListener("beforeunload", (event) => {
   event.preventDefault(); 
   event.returnValue = true; 
-}); 
+}); */

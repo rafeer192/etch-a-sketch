@@ -30,23 +30,30 @@ body {
   border: 2px solid black;
 }
 
+button:active {
+  transform: translateY(3px);
+}
+
 
 div.grid-container {
   background-color: white;
   display: flex; 
   flex-wrap: wrap;
   justify-content: center;
-  width: 804px;
-  height: 804px;
+  align-items: center;
+  width: 812px;
+  height: 812px;
   border: 2px solid black;
   margin: 40px auto;
 }
-.grid-container div.default {
+
+.box {
   border: 1px solid darkgray; 
+  opacity: 1;
+}
+
+.grid-container div.default {
   height: 50px;
   width: 50px; 
 }
 
-div.hovered {
-  background-color: black;
-}
