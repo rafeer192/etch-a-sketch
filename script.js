@@ -76,10 +76,14 @@ function allowDraw() {
 }
 function enterHandler() { 
   if(!this.classList.contains("hovered")) {
-    this.style.cssText += `background-color: black;`;
+    this.style.opacity = "0.1"; 
+    this.style.backgroundColor = "black";
+    this.classList.add("hovered"); 
   }
-  this.style.opacity += 0.1; 
-  this.classList.add("hovered"); 
+  else if(this.style.opacity != "1") {
+    let newOpacity = 0.1 + Number(this.style.opacity); 
+    this.style.opacity = newOpacity;
+  }
 }
 
 function clearCanvas() {
@@ -98,9 +102,9 @@ function allowRandomDraw() {
 function randomEnterHandler() {
   if(!this.classList.contains("hovered")) {
     let newColorCode = "#" + Math.floor(Math.random() * 16777215).toString(16);
-    this.style.cssText += `background-color: ${newColorCode}`; 
+    this.style.cssText += `background-color: ${newColorCode}; opacity: 0.1;`; 
+    this.classList.add("hovered"); 
   }
-  this.classList.add("hovered"); 
 }
 
 /*window.addEventListener("beforeunload", (event) => {
