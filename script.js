@@ -75,7 +75,7 @@ function allowDraw() {
 }
 function enterHandler() { 
   if(!this.classList.contains("hovered")) {
-    this.style.opacity = "0.1"; 
+    this.style.opacity = "0.3"; 
     this.style.backgroundColor = "black";
     this.classList.add("hovered"); 
   }
@@ -100,7 +100,7 @@ function allowRandomDraw() {
 function randomEnterHandler() {
   if(!this.classList.contains("hovered")) {
     let newColorCode = "#" + Math.floor(Math.random() * 16777215).toString(16);
-    this.style.opacity = "0.1"; 
+    this.style.opacity = "0.3"; 
     this.style.backgroundColor = `${newColorCode}`; 
     this.classList.add("hovered"); 
   }
